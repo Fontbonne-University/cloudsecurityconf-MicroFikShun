@@ -23,6 +23,19 @@ class RegistrationController {
     AttendeeService attendeeService;
 
 
+    @RequestMapping
+    @ResponseBody
+    String getVersion()
+    {
+        return "ver 2.0";
+    }
+
+    @RequestMapping("/InClassEx")
+    String getLanding()
+    {
+        return "InClassEx";
+    }
+
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     String home(Model model) {
         model.addAttribute("attendees", attendeeService.getAttendee());
