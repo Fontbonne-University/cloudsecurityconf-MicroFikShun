@@ -23,17 +23,10 @@ class RegistrationController {
     AttendeeService attendeeService;
 
 
-    @RequestMapping
-    @ResponseBody
-    String getVersion()
-    {
-        return "ver 2.0";
-    }
-
-    @RequestMapping("/InClassEx")
-    String getLanding()
-    {
-        return "InClassEx";
+    @RequestMapping(value = "/landing", method = RequestMethod.GET)
+    public String myLanding(Model model) {
+        model.addAttribute("attendee", new Attendee());
+        return "landing";
     }
 
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
@@ -49,10 +42,10 @@ class RegistrationController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String register(@ModelAttribute Attendee attendee, RedirectAttributes redirectAttributes)
+    public String registerDetails(@ModelAttribute Attendee attendee, RedirectAttributes redirectAttributes)
     {
         attendeeService.addAttendee(attendee);
-        redirectAttributes.addFlashAttribute("flash", "Registered "+ attendee.getEmail());
+        redirectAttributes.addFlashAttribute("flash", "Registered "+ attendee.getName() + " Details: " + attendee.getEmail() + ", " + attendee.getPhone());
         return "redirect:/";
     }
 
